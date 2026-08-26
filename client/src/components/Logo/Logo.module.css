@@ -21,3 +21,15 @@
   font-weight: 600;
   color: var(--color-ink);
 }
+
+/* Logo.module.css, додати в кінець файлу */
+@media (max-width: 600px) {
+  .icon {
+    width: 32px;
+    height: 32px;
+  }
+
+  .text {
+    display: none;
+  }
+}

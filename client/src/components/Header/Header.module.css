@@ -1,7 +1,15 @@
 /* client/src/components/Header/Header.module.css */
+/* client/src/components/Header/Header.module.css */
 .header {
   display: flex;
   align-items: center;
   justify-content: space-between;
   width: 100%;
+}
+
+@media (max-width: 600px) {
+  .header {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
 }

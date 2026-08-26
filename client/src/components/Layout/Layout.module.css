@@ -6,3 +6,16 @@
   padding: 24px 100px;
   min-height: 100vh;
 }
+
+@media (max-width: 1024px) {
+  .page {
+    padding: 20px 40px;
+  }
+}
+
+@media (max-width: 600px) {
+  .page {
+    padding: 16px;
+    gap: 20px;
+  }
+}
