@@ -1,0 +1,8 @@
+/* client/src/components/Layout/Layout.module.css */
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  padding: 24px 100px;
+  min-height: 100vh;
+}
