@@ -1,0 +1,45 @@
+/* client/src/pages/StudyMode/StudyMode.module.css */
+.section {
+  width: 100%;
+  max-width: 816px;
+  background: var(--color-white);
+  border-top: 1px solid var(--color-ink);
+  border-left: 1px solid var(--color-ink);
+  border-right: 3px solid var(--color-ink);
+  border-bottom: 3px solid var(--color-ink);
+  border-radius: var(--radius-lg);
+  display: flex;
+  flex-direction: column;
+}
+
+.cardArea {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding: 20px;
+}
+
+.actions {
+  display: flex;
+  gap: 20px;
+}
+
+.divider {
+  height: 1px;
+  background: var(--color-ink);
+  width: 100%;
+}
+
+.navigation {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+.counter {
+  font-family: var(--font-family);
+  font-size: 14px;
+  color: var(--color-muted);
+}
