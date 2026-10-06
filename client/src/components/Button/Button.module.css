@@ -4,23 +4,58 @@
   align-items: center;
   gap: 8px;
   padding: 12px 20px;
-  border: 1px solid var(--color-ink);
+  border: 1px solid rgb(46, 20, 1);
   border-radius: var(--radius-full);
   font-family: var(--font-family);
   font-size: 16px;
   font-weight: 500;
   cursor: pointer;
+  transition:
+    transform 0.12s ease,
+    box-shadow 0.12s ease,
+    background-color 0.12s ease;
 }
 
 .primary {
-  background: var(--color-yellow);
-  color: var(--color-ink);
+  background: rgb(248, 203, 70);
+  color: rgb(46, 20, 1);
 }
 
 .secondary {
-  background: var(--color-white);
-  color: var(--color-ink);
+  background: rgb(255, 255, 255);
+  color: rgb(46, 20, 1);
 }
+
+.shadow {
+  box-shadow: 2px 2px 0 rgb(46, 20, 1);
+}
+
+.button:focus-visible {
+  outline: 2px solid rgb(46, 20, 1);
+  outline-offset: 3px;
+}
+
+@media (hover: hover) {
+  .primary:hover:not(:disabled) {
+    background: rgb(251, 218, 116);
+  }
+
+  .secondary:hover:not(:disabled) {
+    background: rgb(247, 243, 240);
+  }
+
+  .shadow:hover:not(:disabled) {
+    transform: translate(-1px, -1px);
+    box-shadow: 3px 3px 0 rgb(46, 20, 1);
+  }
+}
+
+/* active після hover — при натисканні перемагає він */
+.button:active:not(:disabled) {
+  transform: translate(1px, 1px);
+  box-shadow: 0 0 0 rgb(46, 20, 1);
+}
+
 .button:disabled {
   opacity: 0.4;
   cursor: not-allowed;

@@ -8,13 +8,25 @@
 .select {
   appearance: none;
   padding: 12px 40px 12px 20px;
-  border: 1px solid var(--color-ink);
+  border: 1px solid rgb(46, 20, 1);
   border-radius: var(--radius-full);
   font-family: var(--font-family);
   font-size: 16px;
-  background: var(--color-white);
-  color: var(--color-ink);
+  background: rgb(255, 255, 255);
+  color: rgb(46, 20, 1);
   cursor: pointer;
+  transition: background-color 0.12s ease;
+}
+
+@media (hover: hover) {
+  .select:hover {
+    background: rgb(247, 243, 240);
+  }
+}
+
+.select:focus-visible {
+  outline: 2px solid rgb(46, 20, 1);
+  outline-offset: 3px;
 }
 
 .icon {

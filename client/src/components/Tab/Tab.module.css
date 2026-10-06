@@ -3,8 +3,8 @@
   display: flex;
   gap: 4px;
   padding: 4px;
-  background: var(--color-white);
-  border: 1px solid var(--color-ink);
+  background: rgb(255, 255, 255);
+  border: 1px solid rgb(46, 20, 1);
   border-radius: var(--radius-full);
 }
 
@@ -15,14 +15,26 @@
   font-family: var(--font-family);
   font-size: 16px;
   font-weight: 600;
-  color: var(--color-ink);
+  color: rgb(46, 20, 1);
   text-decoration: none;
   white-space: nowrap;
+  transition: background-color 0.12s ease;
 }
 
 .active {
-  background: var(--color-yellow);
-  border-color: var(--color-ink);
+  background: rgb(248, 203, 70);
+  border-color: rgb(46, 20, 1);
+}
+
+@media (hover: hover) {
+  .item:not(.active):hover {
+    background: rgb(247, 243, 240);
+  }
+}
+
+.item:focus-visible {
+  outline: 2px solid rgb(46, 20, 1);
+  outline-offset: 2px;
 }
 
 @media (max-width: 600px) {

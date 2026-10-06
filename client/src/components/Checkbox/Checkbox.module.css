@@ -1,25 +1,44 @@
 /* client/src/components/Checkbox/Checkbox.module.css */
 .wrapper {
+  position: relative;
   display: flex;
   align-items: center;
   gap: 8px;
   font-family: var(--font-family);
   font-size: 16px;
-  color: var(--color-ink);
+  color: rgb(46, 20, 1);
   cursor: pointer;
 }
 
 .input {
-  display: none;
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
 }
 
 .box {
+  flex-shrink: 0;
   width: 16px;
   height: 16px;
-  border: 1px solid var(--color-ink);
+  background: rgb(255, 255, 255);
+  border: 1px solid rgb(46, 20, 1);
   border-radius: 4px;
+  transition: background-color 0.12s ease;
 }
 
+@media (hover: hover) {
+  .wrapper:hover .box {
+    background: rgb(247, 243, 240);
+  }
+}
+
+/* checked після hover — залитий стан не перебивається */
 .input:checked + .box {
-  background: var(--color-ink);
+  background: rgb(46, 20, 1);
+}
+
+.input:focus-visible + .box {
+  outline: 2px solid rgb(46, 20, 1);
+  outline-offset: 2px;
 }

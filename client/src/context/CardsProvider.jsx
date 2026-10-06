@@ -1,7 +1,35 @@
 // client/src/context/CardsProvider.jsx
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { CardsContext, ALL_CATEGORIES } from "./CardsContext";
 import { mockCards } from "../moc/cards";
+
+const STORAGE_KEY = "flashcard-app:cards";
+
+function isValidCard(c) {
+  return (
+    c &&
+    typeof c.id === "number" &&
+    typeof c.question === "string" &&
+    typeof c.answer === "string" &&
+    typeof c.category === "string" &&
+    Number.isInteger(c.progress) &&
+    c.progress >= 0 &&
+    c.progress <= 5
+  );
+}
+
+function loadCards() {
+  try {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      if (Array.isArray(parsed) && parsed.every(isValidCard)) return parsed;
+    }
+  } catch {
+    // пошкоджені дані або localStorage недоступний — беремо мок-дані
+  }
+  return mockCards;
+}
 
 function shuffle(array) {
   const result = [...array];
@@ -26,9 +54,17 @@ function resolveCategory(name, cards) {
 }
 
 export function CardsProvider({ children }) {
-  const [cards, setCards] = useState(mockCards);
+  const [cards, setCards] = useState(loadCards);
   const [selectedCategory, setCategory] = useState(ALL_CATEGORIES);
   const [hideMastered, setHideMastered] = useState(false);
+
+  useEffect(() => {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(cards));
+    } catch {
+      // сховище переповнене або вимкнене — просто не зберігаємо
+    }
+  }, [cards]);
 
   const categories = [ALL_CATEGORIES, ...new Set(cards.map((c) => c.category))];
 

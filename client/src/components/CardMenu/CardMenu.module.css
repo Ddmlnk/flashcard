@@ -7,10 +7,23 @@
 .trigger {
   padding: 0 16px;
   background: transparent;
-  color: var(--color-ink);
+  color: rgb(46, 20, 1);
   border: none;
-  border-left: 1px solid var(--color-ink);
+  border-left: 1px solid rgb(46, 20, 1);
+  border-bottom-right-radius: 13px;
   cursor: pointer;
+  transition: background-color 0.12s ease;
+}
+
+@media (hover: hover) {
+  .trigger:hover {
+    background: rgb(247, 243, 240);
+  }
+}
+
+.trigger:focus-visible {
+  outline: 2px solid rgb(46, 20, 1);
+  outline-offset: -4px;
 }
 
 .list {
@@ -22,10 +35,10 @@
   margin: 0;
   padding: 4px;
   list-style: none;
-  background: var(--color-white);
-  border: 1px solid var(--color-ink);
+  background: rgb(255, 255, 255);
+  border: 1px solid rgb(46, 20, 1);
   border-radius: var(--radius-md);
-  box-shadow: 2px 2px 0 var(--color-ink);
+  box-shadow: 2px 2px 0 rgb(46, 20, 1);
 }
 
 .list button {
@@ -35,7 +48,7 @@
   width: 100%;
   padding: 8px 12px;
   background: transparent;
-  color: var(--color-ink);
+  color: rgb(46, 20, 1);
   border: none;
   border-radius: 8px;
   font-family: var(--font-family);
@@ -44,6 +57,17 @@
   cursor: pointer;
 }
 
-.list button:hover {
-  background: var(--color-bg);
+@media (hover: hover) {
+  .list button:hover {
+    background: rgb(247, 243, 240);
+  }
+}
+
+.list button:active {
+  background: rgb(235, 228, 222);
+}
+
+.list button:focus-visible {
+  outline: 2px solid rgb(46, 20, 1);
+  outline-offset: -2px;
 }

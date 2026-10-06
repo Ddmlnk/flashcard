@@ -1,17 +1,90 @@
 /* client/src/components/Flashcard/Flashcard.module.css */
 .card {
   width: 100%;
+  perspective: 1200px;
+  cursor: pointer;
+  outline: none;
+  font-family: var(--font-family);
+  -webkit-tap-highlight-color: transparent;
+  transition: transform 0.15s ease;
+}
+
+@media (hover: hover) {
+  .card:hover {
+    transform: translateY(-2px);
+  }
+}
+
+.card:active {
+  transform: translateY(0);
+}
+
+.card:focus-visible .face {
+  outline: 3px solid rgb(46, 20, 1);
+  outline-offset: 3px;
+}
+
+/* Обидві сторони лежать в одній клітинці grid — висота = вища з двох,
+   тож довга відповідь не обрізається */
+.inner {
+  display: grid;
+  transform-style: preserve-3d;
+  transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1);
+}
+
+.flipped .inner {
+  transform: rotateY(180deg);
+}
+
+.face {
+  position: relative;
+  isolation: isolate; /* зірочки з z-index: -1 лишаються всередині сторони */
+  grid-area: 1 / 1;
   min-height: 360px;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 16px;
   padding: 24px;
-  background: var(--color-pink-400);
-  border: 2px solid var(--color-ink);
+  border: 2px solid rgb(46, 20, 1);
   border-radius: var(--radius-lg);
-  box-shadow: 2px 2px 0px var(--color-ink);
-  cursor: pointer;
+  box-shadow: 2px 2px 0 rgb(46, 20, 1);
+  color: rgb(46, 20, 1);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  /* ледь помітна сітка, як у макеті */
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+.front {
+  background-color: rgb(252, 138, 229);
+}
+
+.back {
+  background-color: rgb(206, 82, 240);
+  transform: rotateY(180deg);
+}
+
+.star {
+  position: absolute;
+  z-index: -1;
+  width: 36px;
+  height: 36px;
+  pointer-events: none;
+}
+
+.starTop {
+  top: 14%;
+  right: 5%;
+}
+
+.starBottom {
+  bottom: 16%;
+  left: 5%;
+  transform: rotate(-12deg);
 }
 
 .content {
@@ -24,17 +97,26 @@
   text-align: center;
 }
 
-.text {
+.question {
+  margin: 0;
   font-size: 40px;
   font-weight: 700;
-  color: var(--color-ink);
+  line-height: 1.2;
+  overflow-wrap: anywhere;
+}
+
+.answer {
   margin: 0;
+  font-size: 28px;
+  font-weight: 600;
+  line-height: 1.3;
+  overflow-wrap: anywhere;
 }
 
 .hint {
+  margin: 0;
   font-size: 16px;
   opacity: 0.8;
-  margin: 0;
 }
 
 .progress {
@@ -42,4 +124,36 @@
   align-items: center;
   gap: 8px;
   font-size: 12px;
+  font-weight: 500;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card,
+  .inner {
+    transition: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .face {
+    min-height: 320px;
+    padding: 16px;
+  }
+
+  .star {
+    width: 28px;
+    height: 28px;
+  }
+
+  .question {
+    font-size: 28px;
+  }
+
+  .answer {
+    font-size: 20px;
+  }
+
+  .hint {
+    font-size: 14px;
+  }
 }
