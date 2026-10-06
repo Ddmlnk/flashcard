@@ -1,0 +1,23 @@
+/* client/src/components/EditCardDialog/EditCardDialog.module.css */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+@media (max-width: 600px) {
+  .actions {
+    flex-direction: column-reverse;
+  }
+
+  .actions button {
+    width: 100%;
+    justify-content: center;
+  }
+}

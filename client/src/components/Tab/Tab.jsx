@@ -1,19 +1,21 @@
 // client/src/components/Tab/Tab.jsx
+import { NavLink } from "react-router-dom";
 import styles from "./Tab.module.css";
 
-export default function Tab({ active }) {
+function Tab() {
+  const getClass = ({ isActive }) =>
+    `${styles.item} ${isActive ? styles.active : ""}`;
+
   return (
-    <div className={styles.tab}>
-      <button
-        className={`${styles.item} ${active === "study" ? styles.active : ""}`}
-      >
+    <nav className={styles.tab}>
+      <NavLink to="/" end className={getClass}>
         Study Mode
-      </button>
-      <button
-        className={`${styles.item} ${active === "all" ? styles.active : ""}`}
-      >
+      </NavLink>
+      <NavLink to="/cards" className={getClass}>
         All Cards
-      </button>
-    </div>
+      </NavLink>
+    </nav>
   );
 }
+
+export default Tab;

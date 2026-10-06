@@ -1,0 +1,57 @@
+/* client/src/pages/AllCards/AllCards.module.css */
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.empty {
+  margin: 0;
+  padding: 80px 20px;
+  text-align: center;
+  font-family: var(--font-family);
+  color: var(--color-muted);
+}
+
+.confirmText {
+  margin: 0;
+  font-family: var(--font-family);
+  overflow-wrap: anywhere;
+}
+
+.confirmActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+/* Tablet: 2 колонки */
+@media (max-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* Mobile: 1 колонка */
+@media (max-width: 600px) {
+  .grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 16px;
+  }
+
+  .confirmActions {
+    flex-direction: column-reverse;
+  }
+
+  .confirmActions button {
+    width: 100%;
+    justify-content: center;
+  }
+}

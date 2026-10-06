@@ -1,0 +1,45 @@
+/* client/src/components/Modal/Modal.module.css */
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  background: rgba(46, 20, 1, 0.45);
+}
+
+.panel {
+  width: 100%;
+  max-width: 480px;
+  max-height: 100%;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 24px;
+  background: var(--color-white);
+  border-top: 1px solid var(--color-ink);
+  border-left: 1px solid var(--color-ink);
+  border-right: 3px solid var(--color-ink);
+  border-bottom: 3px solid var(--color-ink);
+  border-radius: var(--radius-lg);
+}
+
+.title {
+  margin: 0;
+  font-family: var(--font-family);
+  font-size: 24px;
+  font-weight: 600;
+}
+
+@media (max-width: 600px) {
+  .panel {
+    padding: 16px;
+  }
+
+  .title {
+    font-size: 20px;
+  }
+}

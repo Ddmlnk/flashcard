@@ -1,15 +1,32 @@
 /* client/src/pages/StudyMode/StudyMode.module.css */
-.section {
+.page {
+  display: flex;
+  align-items: flex-start;
+  gap: 32px;
   width: 100%;
-  max-width: 816px;
+}
+
+.section {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
   background: var(--color-white);
   border-top: 1px solid var(--color-ink);
   border-left: 1px solid var(--color-ink);
   border-right: 3px solid var(--color-ink);
   border-bottom: 3px solid var(--color-ink);
   border-radius: var(--radius-lg);
-  display: flex;
-  flex-direction: column;
+}
+
+.header {
+  padding: 20px;
+}
+
+.divider {
+  height: 1px;
+  width: 100%;
+  background: var(--color-ink);
 }
 
 .cardArea {
@@ -25,10 +42,12 @@
   gap: 20px;
 }
 
-.divider {
-  height: 1px;
-  background: var(--color-ink);
-  width: 100%;
+.empty {
+  margin: 0;
+  padding: 80px 20px;
+  text-align: center;
+  font-family: var(--font-family);
+  color: var(--color-muted);
 }
 
 .navigation {
@@ -42,4 +61,42 @@
   font-family: var(--font-family);
   font-size: 14px;
   color: var(--color-muted);
+}
+
+/* Tablet: статистика йде під секцією */
+@media (max-width: 1024px) {
+  .page {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+  .header,
+  .cardArea,
+  .navigation {
+    padding: 16px;
+  }
+
+  .actions {
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+  }
+
+  .actions button {
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* Previous/Next стають круглими кнопками зі стрілками */
+  .navigation .navButton {
+    padding: 12px;
+    border-radius: 50%;
+  }
+
+  .label {
+    display: none;
+  }
 }

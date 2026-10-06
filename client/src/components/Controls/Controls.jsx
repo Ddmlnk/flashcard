@@ -15,21 +15,25 @@ function Controls({
 }) {
   return (
     <div className={styles.controls}>
-      <div className={styles.left}>
+      <div className={styles.category}>
         <Dropdown
           options={categories}
           value={category}
           onChange={onCategoryChange}
         />
+      </div>
+      <div className={styles.hide}>
         <Checkbox
           label="Hide Mastered"
           checked={hideMastered}
           onChange={onHideMasteredChange}
         />
       </div>
-      <Button onClick={onShuffle}>
-        <Shuffle size={16} /> Shuffle
-      </Button>
+      <div className={styles.shuffle}>
+        <Button onClick={onShuffle}>
+          <Shuffle size={16} /> Shuffle
+        </Button>
+      </div>
     </div>
   );
 }
