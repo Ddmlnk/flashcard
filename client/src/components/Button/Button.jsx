@@ -1,7 +1,6 @@
-// client/src/components/Button/Button.jsx
 import styles from "./Button.module.css";
 
-function Button({ children, primary, shadow, className = "", ...props }) {
+export default function Button({ children, primary, shadow, className = "", ...props }) {
   const classNames = [
     styles.button,
     primary ? styles.primary : styles.secondary,
@@ -15,5 +14,3 @@ function Button({ children, primary, shadow, className = "", ...props }) {
     </button>
   );
 }
-
-export default Button;

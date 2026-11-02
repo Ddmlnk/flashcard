@@ -1,4 +1,3 @@
-// client/src/moc/cards.js
 export const mockCards = [
   {
     id: 1,

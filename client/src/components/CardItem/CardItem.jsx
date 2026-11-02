@@ -1,10 +1,9 @@
-// client/src/components/CardItem/CardItem.jsx
 import CategoryBadge from "../CategoryBadge/CategoryBadge";
 import ProgressBar from "../ProgressBar/ProgressBar";
 import CardMenu from "../CardMenu/CardMenu";
 import styles from "./CardItem.module.css";
 
-function CardItem({ card, onEdit, onDelete }) {
+export default function CardItem({ card, onEdit, onDelete }) {
   const mastered = card.progress === 5;
 
   return (
@@ -32,5 +31,3 @@ function CardItem({ card, onEdit, onDelete }) {
     </article>
   );
 }
-
-export default CardItem;

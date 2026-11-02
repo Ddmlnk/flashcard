@@ -1,4 +1,3 @@
-/* client/src/components/Controls/Controls.module.css */
 .controls {
   display: grid;
   grid-template-columns: auto auto 1fr auto;

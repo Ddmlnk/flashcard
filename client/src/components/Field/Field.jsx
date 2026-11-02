@@ -1,7 +1,6 @@
-// client/src/components/Field/Field.jsx
 import styles from "./Field.module.css";
 
-function Field({ label, error, multiline, ...props }) {
+export default function Field({ label, error, multiline, ...props }) {
   const Tag = multiline ? "textarea" : "input";
 
   return (
@@ -15,5 +14,3 @@ function Field({ label, error, multiline, ...props }) {
     </label>
   );
 }
-
-export default Field;

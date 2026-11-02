@@ -1,9 +1,8 @@
-// client/src/components/CardMenu/CardMenu.jsx
 import { useEffect, useRef, useState } from "react";
 import { EllipsisVertical, Pencil, Trash2 } from "lucide-react";
 import styles from "./CardMenu.module.css";
 
-function CardMenu({ onEdit, onDelete }) {
+export default function CardMenu({ onEdit, onDelete }) {
   const [open, setOpen] = useState(false);
   const ref = useRef(null);
 
@@ -51,5 +50,3 @@ function CardMenu({ onEdit, onDelete }) {
     </div>
   );
 }
-
-export default CardMenu;

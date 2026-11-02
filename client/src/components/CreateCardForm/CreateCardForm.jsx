@@ -1,4 +1,3 @@
-// client/src/components/CreateCardForm/CreateCardForm.jsx
 import { useEffect, useState } from "react";
 import { Plus } from "lucide-react";
 import Field from "../Field/Field";
@@ -7,7 +6,7 @@ import { useCards } from "../../hooks/useCards";
 import { ALL_CATEGORIES } from "../../context/CardsContext";
 import styles from "./CreateCardForm.module.css";
 
-function CreateCardForm() {
+export default function CreateCardForm() {
   const { categories, addCard, setCategory: setFilter } = useCards();
 
   const [question, setQuestion] = useState("");
@@ -99,5 +98,3 @@ function CreateCardForm() {
     </form>
   );
 }
-
-export default CreateCardForm;

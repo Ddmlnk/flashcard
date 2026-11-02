@@ -1,10 +1,9 @@
-// client/src/App.jsx
 import { Routes, Route } from "react-router-dom";
 import Layout from "./components/Layout/Layout";
 import StudyMode from "./pages/StudyMode/StudyMode";
 import AllCards from "./pages/AllCards/AllCards";
 
-function App() {
+export default function App() {
   return (
     <Layout>
       <Routes>
@@ -14,5 +13,3 @@ function App() {
     </Layout>
   );
 }
-
-export default App;

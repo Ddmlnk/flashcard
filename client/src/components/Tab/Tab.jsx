@@ -1,8 +1,7 @@
-// client/src/components/Tab/Tab.jsx
 import { NavLink } from "react-router-dom";
 import styles from "./Tab.module.css";
 
-function Tab() {
+export default function Tab() {
   const getClass = ({ isActive }) =>
     `${styles.item} ${isActive ? styles.active : ""}`;
 
@@ -17,5 +16,3 @@ function Tab() {
     </nav>
   );
 }
-
-export default Tab;

@@ -1,4 +1,3 @@
-// client/src/pages/AllCards/AllCards.jsx
 import { useState } from "react";
 import Controls from "../../components/Controls/Controls";
 import CreateCardForm from "../../components/CreateCardForm/CreateCardForm";
@@ -9,7 +8,7 @@ import Button from "../../components/Button/Button";
 import { useCards } from "../../hooks/useCards";
 import styles from "./AllCards.module.css";
 
-function AllCards() {
+export default function AllCards() {
   const {
     visibleCards,
     categories,
@@ -79,5 +78,3 @@ function AllCards() {
     </div>
   );
 }
-
-export default AllCards;

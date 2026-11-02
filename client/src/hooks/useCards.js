@@ -1,4 +1,3 @@
-// client/src/hooks/useCards.js
 import { useContext } from "react";
 import { CardsContext } from "../context/CardsContext";
 

@@ -1,5 +1,4 @@
-// client/src/components/Star/Star.jsx
-function Star({ color, size = 32, className }) {
+export default function Star({ color, size = 32, className }) {
   return (
     <svg
       className={className}
@@ -19,5 +18,3 @@ function Star({ color, size = 32, className }) {
     </svg>
   );
 }
-
-export default Star;

@@ -1,11 +1,10 @@
-// client/src/components/Controls/Controls.jsx
 import { Shuffle } from "lucide-react";
 import Dropdown from "../Dropdown/Dropdown";
 import Checkbox from "../Checkbox/Checkbox";
 import Button from "../Button/Button";
 import styles from "./Controls.module.css";
 
-function Controls({
+export default function Controls({
   categories,
   category,
   onCategoryChange,
@@ -37,5 +36,3 @@ function Controls({
     </div>
   );
 }
-
-export default Controls;

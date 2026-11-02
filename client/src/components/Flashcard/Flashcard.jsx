@@ -1,4 +1,3 @@
-// client/src/components/Flashcard/Flashcard.jsx
 import { useState } from "react";
 import CategoryBadge from "../CategoryBadge/CategoryBadge";
 import ProgressBar from "../ProgressBar/ProgressBar";
@@ -32,7 +31,7 @@ function Face({ variant, hidden, category, progress, text, hint, textClass }) {
   );
 }
 
-function Flashcard({ question, answer, category, progress }) {
+export default function Flashcard({ question, answer, category, progress }) {
   const [flipped, setFlipped] = useState(false);
 
   function toggle() {
@@ -77,5 +76,3 @@ function Flashcard({ question, answer, category, progress }) {
     </div>
   );
 }
-
-export default Flashcard;

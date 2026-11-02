@@ -1,8 +1,7 @@
-// client/src/components/Dropdown/Dropdown.jsx
 import { ChevronDown } from "lucide-react";
 import styles from "./Dropdown.module.css";
 
-function Dropdown({ options, value, onChange }) {
+export default function Dropdown({ options, value, onChange }) {
   return (
     <div className={styles.wrapper}>
       <select className={styles.select} value={value} onChange={onChange}>
@@ -16,5 +15,3 @@ function Dropdown({ options, value, onChange }) {
     </div>
   );
 }
-
-export default Dropdown;

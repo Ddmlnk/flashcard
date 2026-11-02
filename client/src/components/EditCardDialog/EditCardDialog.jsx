@@ -1,4 +1,3 @@
-// client/src/components/EditCardDialog/EditCardDialog.jsx
 import { useState } from "react";
 import Modal from "../Modal/Modal";
 import Field from "../Field/Field";
@@ -7,7 +6,7 @@ import { useCards } from "../../hooks/useCards";
 import { ALL_CATEGORIES } from "../../context/CardsContext";
 import styles from "./EditCardDialog.module.css";
 
-function EditCardDialog({ card, onClose }) {
+export default function EditCardDialog({ card, onClose }) {
   const { categories, updateCard } = useCards();
   const [question, setQuestion] = useState(card.question);
   const [answer, setAnswer] = useState(card.answer);
@@ -76,5 +75,3 @@ function EditCardDialog({ card, onClose }) {
     </Modal>
   );
 }
-
-export default EditCardDialog;

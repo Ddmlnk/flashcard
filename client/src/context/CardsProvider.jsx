@@ -1,4 +1,3 @@
-// client/src/context/CardsProvider.jsx
 import { useEffect, useState } from "react";
 import { CardsContext, ALL_CATEGORIES } from "./CardsContext";
 import { mockCards } from "../moc/cards";

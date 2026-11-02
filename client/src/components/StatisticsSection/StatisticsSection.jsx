@@ -1,4 +1,3 @@
-// client/src/components/StatisticsSection/StatisticsSection.jsx
 import { Layers, Brain, BookOpen, Inbox } from "lucide-react";
 import styles from "./StatisticsSection.module.css";
 
@@ -16,7 +15,7 @@ function StatCard({ label, value, color, icon: Icon }) {
   );
 }
 
-function StatisticsSection({ stats }) {
+export default function StatisticsSection({ stats }) {
   return (
     <section className={styles.section}>
       <h2 className={styles.title}>Study Statistics</h2>
@@ -49,5 +48,3 @@ function StatisticsSection({ stats }) {
     </section>
   );
 }
-
-export default StatisticsSection;

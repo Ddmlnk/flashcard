@@ -1,5 +1,4 @@
-// client/src/pages/StudyMode/StudyMode.jsx
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   ChevronLeft,
   ChevronRight,
@@ -13,7 +12,7 @@ import StatisticsSection from "../../components/StatisticsSection/StatisticsSect
 import { useCards } from "../../hooks/useCards";
 import styles from "./StudyMode.module.css";
 
-function StudyMode() {
+export default function StudyMode() {
   const {
     visibleCards,
     categories,
@@ -27,32 +26,57 @@ function StudyMode() {
     shuffleCards,
   } = useCards();
 
-  const [currentIndex, setCurrentIndex] = useState(0);
+  // Поточну картку тримаємо за id, а не за індексом: після Shuffle чи коли
+  // картка стає Mastered і ховається, індекси зсуваються
+  const [currentId, setCurrentId] = useState(null);
+  // Поки true — кнопка зелена, а за мить прогрес +1 і перехід на наступну картку
+  const [confirming, setConfirming] = useState(false);
+  const timerRef = useRef(null);
 
-  const safeIndex = Math.min(currentIndex, visibleCards.length - 1);
+  useEffect(() => () => clearTimeout(timerRef.current), []);
+
+  const foundIndex = visibleCards.findIndex((c) => c.id === currentId);
+  const safeIndex = foundIndex === -1 ? 0 : foundIndex;
   const card = visibleCards[safeIndex];
+  const isMastered = card?.progress === 5;
+
+  function goTo(index) {
+    setCurrentId(visibleCards[index]?.id ?? null);
+  }
 
   function handleCategoryChange(e) {
     setCategory(e.target.value);
-    setCurrentIndex(0);
+    setCurrentId(null);
   }
 
   function handleHideMasteredChange(e) {
     setHideMastered(e.target.checked);
-    setCurrentIndex(0);
+    setCurrentId(null);
   }
 
   function handleShuffle() {
     shuffleCards();
-    setCurrentIndex(0);
+    setCurrentId(null);
+  }
+
+  function handleKnow() {
+    const id = card.id;
+    // Наступна картка по колу; запам'ятовуємо зараз, бо список може змінитись
+    const nextId = visibleCards[(safeIndex + 1) % visibleCards.length].id;
+    setConfirming(true);
+    timerRef.current = setTimeout(() => {
+      updateProgress(id);
+      setCurrentId(nextId);
+      setConfirming(false);
+    }, 500);
   }
 
   function goPrevious() {
-    setCurrentIndex(Math.max(safeIndex - 1, 0));
+    goTo(Math.max(safeIndex - 1, 0));
   }
 
   function goNext() {
-    setCurrentIndex(Math.min(safeIndex + 1, visibleCards.length - 1));
+    goTo(Math.min(safeIndex + 1, visibleCards.length - 1));
   }
 
   return (
@@ -82,10 +106,23 @@ function StudyMode() {
                 progress={card.progress}
               />
               <div className={styles.actions}>
-                <Button primary onClick={() => updateProgress(card.id)}>
-                  <CircleCheck size={16} /> I Know This
+                <Button
+                  primary
+                  className={confirming || isMastered ? styles.known : ""}
+                  onClick={handleKnow}
+                  disabled={confirming || isMastered}
+                >
+                  <CircleCheck size={16} />{" "}
+                  {isMastered
+                    ? "Mastered"
+                    : confirming
+                      ? "Got it!"
+                      : "I Know This"}
                 </Button>
-                <Button onClick={() => resetProgress(card.id)}>
+                <Button
+                  onClick={() => resetProgress(card.id)}
+                  disabled={confirming || card.progress === 0}
+                >
                   <RotateCcw size={16} /> Reset Progress
                 </Button>
               </div>
@@ -103,7 +140,7 @@ function StudyMode() {
           <Button
             className={styles.navButton}
             onClick={goPrevious}
-            disabled={!card || safeIndex === 0}
+            disabled={!card || confirming || safeIndex === 0}
           >
             <ChevronLeft size={16} />
             <span className={styles.label}>Previous</span>
@@ -114,7 +151,9 @@ function StudyMode() {
           <Button
             className={styles.navButton}
             onClick={goNext}
-            disabled={!card || safeIndex === visibleCards.length - 1}
+            disabled={
+              !card || confirming || safeIndex === visibleCards.length - 1
+            }
           >
             <span className={styles.label}>Next</span>
             <ChevronRight size={16} />
@@ -126,5 +165,3 @@ function StudyMode() {
     </div>
   );
 }
-
-export default StudyMode;

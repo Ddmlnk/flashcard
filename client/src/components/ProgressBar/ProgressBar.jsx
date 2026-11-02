@@ -1,7 +1,6 @@
-// client/src/components/ProgressBar/ProgressBar.jsx
 import styles from "./ProgressBar.module.css";
 
-function ProgressBar({ progress, max = 5 }) {
+export default function ProgressBar({ progress, max = 5 }) {
   const percent = (progress / max) * 100;
 
   return (
@@ -10,5 +9,3 @@ function ProgressBar({ progress, max = 5 }) {
     </div>
   );
 }
-
-export default ProgressBar;
