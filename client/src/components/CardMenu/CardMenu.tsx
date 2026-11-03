@@ -2,21 +2,27 @@ import { useEffect, useRef, useState } from "react";
 import { EllipsisVertical, Pencil, Trash2 } from "lucide-react";
 import styles from "./CardMenu.module.css";
 
-export default function CardMenu({ onEdit, onDelete }) {
+interface CardMenuProps {
+  onEdit: () => void;
+  onDelete: () => void;
+}
+
+export default function CardMenu({ onEdit, onDelete }: CardMenuProps) {
   const [open, setOpen] = useState(false);
-  const ref = useRef(null);
+  const ref = useRef<HTMLDivElement>(null);
 
   // Закриваємо меню по кліку поза ним
   useEffect(() => {
     if (!open) return;
-    function handleClick(e) {
-      if (ref.current && !ref.current.contains(e.target)) setOpen(false);
+    function handleClick(e: MouseEvent) {
+      if (ref.current && !ref.current.contains(e.target as Node))
+        setOpen(false);
     }
     document.addEventListener("mousedown", handleClick);
     return () => document.removeEventListener("mousedown", handleClick);
   }, [open]);
 
-  function choose(action) {
+  function choose(action: () => void) {
     setOpen(false);
     action();
   }

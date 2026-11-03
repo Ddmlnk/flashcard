@@ -1,22 +1,30 @@
-import { useState } from "react";
+import { type FormEvent, useState } from "react";
 import Modal from "../Modal/Modal";
 import Field from "../Field/Field";
 import Button from "../Button/Button";
 import { useCards } from "../../hooks/useCards";
 import { ALL_CATEGORIES } from "../../context/CardsContext";
+import type { Card } from "../../types";
 import styles from "./EditCardDialog.module.css";
 
-export default function EditCardDialog({ card, onClose }) {
+type FormErrors = Partial<Record<"question" | "answer", string>>;
+
+interface EditCardDialogProps {
+  card: Card;
+  onClose: () => void;
+}
+
+export default function EditCardDialog({ card, onClose }: EditCardDialogProps) {
   const { categories, updateCard } = useCards();
   const [question, setQuestion] = useState(card.question);
   const [answer, setAnswer] = useState(card.answer);
   const [category, setCategory] = useState(card.category);
-  const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState<FormErrors>({});
 
-  function handleSubmit(e) {
+  function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    const nextErrors = {};
+    const nextErrors: FormErrors = {};
     if (!question.trim()) nextErrors.question = "Please enter a question.";
     if (!answer.trim()) nextErrors.answer = "Please enter an answer.";
 

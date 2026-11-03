@@ -2,10 +2,10 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { HashRouter } from "react-router-dom";
 import "./index.css";
-import App from "./App.jsx";
-import { CardsProvider } from "./context/CardsProvider.jsx";
+import App from "./App";
+import { CardsProvider } from "./context/CardsProvider";
 
-createRoot(document.getElementById("root")).render(
+createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <HashRouter>
       <CardsProvider>

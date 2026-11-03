@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { type ChangeEvent, useEffect, useRef, useState } from "react";
 import {
   ChevronLeft,
   ChevronRight,
@@ -10,6 +10,7 @@ import Button from "../../components/Button/Button";
 import Controls from "../../components/Controls/Controls";
 import StatisticsSection from "../../components/StatisticsSection/StatisticsSection";
 import { useCards } from "../../hooks/useCards";
+import type { Card } from "../../types";
 import styles from "./StudyMode.module.css";
 
 export default function StudyMode() {
@@ -28,28 +29,28 @@ export default function StudyMode() {
 
   // Поточну картку тримаємо за id, а не за індексом: після Shuffle чи коли
   // картка стає Mastered і ховається, індекси зсуваються
-  const [currentId, setCurrentId] = useState(null);
+  const [currentId, setCurrentId] = useState<number | null>(null);
   // Поки true — кнопка зелена, а за мить прогрес +1 і перехід на наступну картку
   const [confirming, setConfirming] = useState(false);
-  const timerRef = useRef(null);
+  const timerRef = useRef<ReturnType<typeof setTimeout>>(undefined);
 
   useEffect(() => () => clearTimeout(timerRef.current), []);
 
   const foundIndex = visibleCards.findIndex((c) => c.id === currentId);
   const safeIndex = foundIndex === -1 ? 0 : foundIndex;
-  const card = visibleCards[safeIndex];
+  const card: Card | undefined = visibleCards[safeIndex];
   const isMastered = card?.progress === 5;
 
-  function goTo(index) {
+  function goTo(index: number) {
     setCurrentId(visibleCards[index]?.id ?? null);
   }
 
-  function handleCategoryChange(e) {
+  function handleCategoryChange(e: ChangeEvent<HTMLSelectElement>) {
     setCategory(e.target.value);
     setCurrentId(null);
   }
 
-  function handleHideMasteredChange(e) {
+  function handleHideMasteredChange(e: ChangeEvent<HTMLInputElement>) {
     setHideMastered(e.target.checked);
     setCurrentId(null);
   }
@@ -60,6 +61,7 @@ export default function StudyMode() {
   }
 
   function handleKnow() {
+    if (!card) return;
     const id = card.id;
     // Наступна картка по колу; запам'ятовуємо зараз, бо список може змінитись
     const nextId = visibleCards[(safeIndex + 1) % visibleCards.length].id;

@@ -6,6 +6,7 @@ import EditCardDialog from "../../components/EditCardDialog/EditCardDialog";
 import Modal from "../../components/Modal/Modal";
 import Button from "../../components/Button/Button";
 import { useCards } from "../../hooks/useCards";
+import type { Card } from "../../types";
 import styles from "./AllCards.module.css";
 
 export default function AllCards() {
@@ -20,10 +21,11 @@ export default function AllCards() {
     deleteCard,
   } = useCards();
 
-  const [editing, setEditing] = useState(null);
-  const [deleting, setDeleting] = useState(null);
+  const [editing, setEditing] = useState<Card | null>(null);
+  const [deleting, setDeleting] = useState<Card | null>(null);
 
   function confirmDelete() {
+    if (!deleting) return;
     deleteCard(deleting.id);
     setDeleting(null);
   }

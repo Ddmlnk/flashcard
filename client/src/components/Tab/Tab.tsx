@@ -2,7 +2,7 @@ import { NavLink } from "react-router-dom";
 import styles from "./Tab.module.css";
 
 export default function Tab() {
-  const getClass = ({ isActive }) =>
+  const getClass = ({ isActive }: { isActive: boolean }) =>
     `${styles.item} ${isActive ? styles.active : ""}`;
 
   return (

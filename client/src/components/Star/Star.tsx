@@ -1,4 +1,10 @@
-export default function Star({ color, size = 32, className }) {
+interface StarProps {
+  color: string;
+  size?: number;
+  className?: string;
+}
+
+export default function Star({ color, size = 32, className }: StarProps) {
   return (
     <svg
       className={className}

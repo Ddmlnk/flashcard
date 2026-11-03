@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { type FormEvent, useEffect, useState } from "react";
 import { Plus } from "lucide-react";
 import Field from "../Field/Field";
 import Button from "../Button/Button";
@@ -6,13 +6,15 @@ import { useCards } from "../../hooks/useCards";
 import { ALL_CATEGORIES } from "../../context/CardsContext";
 import styles from "./CreateCardForm.module.css";
 
+type FormErrors = Partial<Record<"question" | "answer", string>>;
+
 export default function CreateCardForm() {
   const { categories, addCard, setCategory: setFilter } = useCards();
 
   const [question, setQuestion] = useState("");
   const [answer, setAnswer] = useState("");
   const [category, setCategory] = useState("");
-  const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState<FormErrors>({});
   const [created, setCreated] = useState(false);
 
   // Повідомлення про успіх зникає за 3 секунди
@@ -22,10 +24,10 @@ export default function CreateCardForm() {
     return () => clearTimeout(timer);
   }, [created]);
 
-  function handleSubmit(e) {
+  function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    const nextErrors = {};
+    const nextErrors: FormErrors = {};
     if (!question.trim()) nextErrors.question = "Please enter a question.";
     if (!answer.trim()) nextErrors.answer = "Please enter an answer.";
     setErrors(nextErrors);
@@ -43,7 +45,7 @@ export default function CreateCardForm() {
     setCreated(true);
   }
 
-  function clearError(field) {
+  function clearError(field: keyof FormErrors) {
     setErrors((prev) => ({ ...prev, [field]: undefined }));
   }
 

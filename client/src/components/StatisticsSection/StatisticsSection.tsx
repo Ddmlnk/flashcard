@@ -1,7 +1,15 @@
-import { Layers, Brain, BookOpen, Inbox } from "lucide-react";
+import { Layers, Brain, BookOpen, Inbox, type LucideIcon } from "lucide-react";
+import type { Stats } from "../../types";
 import styles from "./StatisticsSection.module.css";
 
-function StatCard({ label, value, color, icon: Icon }) {
+interface StatCardProps {
+  label: string;
+  value: number;
+  color: string;
+  icon: LucideIcon;
+}
+
+function StatCard({ label, value, color, icon: Icon }: StatCardProps) {
   return (
     <div className={styles.card}>
       <div className={styles.info}>
@@ -15,7 +23,7 @@ function StatCard({ label, value, color, icon: Icon }) {
   );
 }
 
-export default function StatisticsSection({ stats }) {
+export default function StatisticsSection({ stats }: { stats: Stats }) {
   return (
     <section className={styles.section}>
       <h2 className={styles.title}>Study Statistics</h2>

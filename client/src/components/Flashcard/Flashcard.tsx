@@ -1,10 +1,28 @@
-import { useState } from "react";
+import { type KeyboardEvent, useState } from "react";
 import CategoryBadge from "../CategoryBadge/CategoryBadge";
 import ProgressBar from "../ProgressBar/ProgressBar";
 import Star from "../Star/Star";
 import styles from "./Flashcard.module.css";
 
-function Face({ variant, hidden, category, progress, text, hint, textClass }) {
+interface FaceProps {
+  variant: "front" | "back";
+  hidden: boolean;
+  category: string;
+  progress: number;
+  text: string;
+  hint: string;
+  textClass: string;
+}
+
+function Face({
+  variant,
+  hidden,
+  category,
+  progress,
+  text,
+  hint,
+  textClass,
+}: FaceProps) {
   return (
     <div className={`${styles.face} ${styles[variant]}`} aria-hidden={hidden}>
       <Star
@@ -31,14 +49,26 @@ function Face({ variant, hidden, category, progress, text, hint, textClass }) {
   );
 }
 
-export default function Flashcard({ question, answer, category, progress }) {
+interface FlashcardProps {
+  question: string;
+  answer: string;
+  category: string;
+  progress: number;
+}
+
+export default function Flashcard({
+  question,
+  answer,
+  category,
+  progress,
+}: FlashcardProps) {
   const [flipped, setFlipped] = useState(false);
 
   function toggle() {
     setFlipped((prev) => !prev);
   }
 
-  function handleKeyDown(e) {
+  function handleKeyDown(e: KeyboardEvent<HTMLDivElement>) {
     if (e.key === "Enter" || e.key === " ") {
       e.preventDefault();
       toggle();

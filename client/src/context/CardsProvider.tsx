@@ -1,27 +1,34 @@
-import { useEffect, useState } from "react";
-import { CardsContext, ALL_CATEGORIES } from "./CardsContext";
+import { useEffect, useState, type ReactNode } from "react";
+import {
+  CardsContext,
+  ALL_CATEGORIES,
+  type CardsContextValue,
+} from "./CardsContext";
 import { mockCards } from "../moc/cards";
+import type { Card, NewCard, Stats } from "../types";
 
 const STORAGE_KEY = "flashcard-app:cards";
 
-function isValidCard(c) {
+function isValidCard(c: unknown): c is Card {
+  if (typeof c !== "object" || c === null) return false;
+  const card = c as Record<string, unknown>;
   return (
-    c &&
-    typeof c.id === "number" &&
-    typeof c.question === "string" &&
-    typeof c.answer === "string" &&
-    typeof c.category === "string" &&
-    Number.isInteger(c.progress) &&
-    c.progress >= 0 &&
-    c.progress <= 5
+    typeof card.id === "number" &&
+    typeof card.question === "string" &&
+    typeof card.answer === "string" &&
+    typeof card.category === "string" &&
+    typeof card.progress === "number" &&
+    Number.isInteger(card.progress) &&
+    card.progress >= 0 &&
+    card.progress <= 5
   );
 }
 
-function loadCards() {
+function loadCards(): Card[] {
   try {
     const saved = localStorage.getItem(STORAGE_KEY);
     if (saved) {
-      const parsed = JSON.parse(saved);
+      const parsed: unknown = JSON.parse(saved);
       if (Array.isArray(parsed) && parsed.every(isValidCard)) return parsed;
     }
   } catch {
@@ -30,7 +37,7 @@ function loadCards() {
   return mockCards;
 }
 
-function shuffle(array) {
+function shuffle<T>(array: T[]): T[] {
   const result = [...array];
   for (let i = result.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -41,7 +48,7 @@ function shuffle(array) {
 
 // Порожня назва → "General". Якщо така категорія вже є (без урахування
 // регістру) — беремо її написання. "All Categories" зарезервовано під фільтр.
-function resolveCategory(name, cards) {
+function resolveCategory(name: string, cards: Card[]): string {
   const trimmed = name.trim();
   if (!trimmed || trimmed.toLowerCase() === ALL_CATEGORIES.toLowerCase()) {
     return "General";
@@ -52,7 +59,7 @@ function resolveCategory(name, cards) {
   return existing ? existing.category : trimmed;
 }
 
-export function CardsProvider({ children }) {
+export function CardsProvider({ children }: { children: ReactNode }) {
   const [cards, setCards] = useState(loadCards);
   const [selectedCategory, setCategory] = useState(ALL_CATEGORIES);
   const [hideMastered, setHideMastered] = useState(false);
@@ -79,14 +86,14 @@ export function CardsProvider({ children }) {
   );
 
   // Статистика рахується з усіх карток, не з відфільтрованих
-  const stats = {
+  const stats: Stats = {
     total: cards.length,
     mastered: cards.filter((c) => c.progress === 5).length,
     inProgress: cards.filter((c) => c.progress > 0 && c.progress < 5).length,
     notStarted: cards.filter((c) => c.progress === 0).length,
   };
 
-  function updateCard(id, changes) {
+  function updateCard(id: number, changes: Partial<Omit<Card, "id">>) {
     setCards((prev) =>
       prev.map((c) => {
         if (c.id !== id) return c;
@@ -99,7 +106,7 @@ export function CardsProvider({ children }) {
     );
   }
 
-  function updateProgress(id) {
+  function updateProgress(id: number) {
     setCards((prev) =>
       prev.map((c) =>
         c.id === id ? { ...c, progress: Math.min(c.progress + 1, 5) } : c,
@@ -107,15 +114,15 @@ export function CardsProvider({ children }) {
     );
   }
 
-  function resetProgress(id) {
+  function resetProgress(id: number) {
     updateCard(id, { progress: 0 });
   }
 
-  function deleteCard(id) {
+  function deleteCard(id: number) {
     setCards((prev) => prev.filter((c) => c.id !== id));
   }
 
-  function addCard({ question, answer, category }) {
+  function addCard({ question, answer, category }: NewCard) {
     const id = Date.now();
     setCards((prev) => [
       {
@@ -133,7 +140,7 @@ export function CardsProvider({ children }) {
     setCards((prev) => shuffle(prev));
   }
 
-  const value = {
+  const value: CardsContextValue = {
     cards,
     categories,
     category,

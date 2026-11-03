@@ -1,6 +1,13 @@
+import type { ChangeEvent } from "react";
 import styles from "./Checkbox.module.css";
 
-export default function Checkbox({ label, checked, onChange }) {
+interface CheckboxProps {
+  label: string;
+  checked: boolean;
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+}
+
+export default function Checkbox({ label, checked, onChange }: CheckboxProps) {
   return (
     <label className={styles.wrapper}>
       <input

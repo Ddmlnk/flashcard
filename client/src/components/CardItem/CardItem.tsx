@@ -1,9 +1,16 @@
 import CategoryBadge from "../CategoryBadge/CategoryBadge";
 import ProgressBar from "../ProgressBar/ProgressBar";
 import CardMenu from "../CardMenu/CardMenu";
+import type { Card } from "../../types";
 import styles from "./CardItem.module.css";
 
-export default function CardItem({ card, onEdit, onDelete }) {
+interface CardItemProps {
+  card: Card;
+  onEdit: () => void;
+  onDelete: () => void;
+}
+
+export default function CardItem({ card, onEdit, onDelete }: CardItemProps) {
   const mastered = card.progress === 5;
 
   return (

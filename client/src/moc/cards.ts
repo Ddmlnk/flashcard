@@ -1,4 +1,6 @@
-export const mockCards = [
+import type { Card } from "../types";
+
+export const mockCards: Card[] = [
   {
     id: 1,
     question: "What does HTML stand for?",
